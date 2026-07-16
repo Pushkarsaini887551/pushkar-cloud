@@ -1,25 +1,11 @@
-// 1. Firebase कॉन्फ़िगरेशन
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+// ... (ऊपर वाला Firebase कोड वैसा ही रहेगा) ...
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB5NQYqtdKLfReVM9u3-Woo8hwIgxz5Rg",
-  authDomain: "pushkar-cloud.firebaseapp.com",
-  projectId: "pushkar-cloud",
-  storageBucket: "pushkar-cloud.firebasestorage.app",
-  messagingSenderId: "129945481337",
-  appId: "1:129945481337:web:e78b41bddbbf1676cee4a8"
-};
+// Cloudinary के लिए सही जानकारी डालें
+const CLOUD_NAME = "do9l1n68b"; // अपनी Cloudinary सेटिंग्स में 'Cloud name' चेक करें
+const UPLOAD_PRESET = "pushkar_upload"; // जो आपने अभी बनाया है
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
-// Firebase इनिशियलाइज़ करें
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// 2. Cloudinary का सेटअप (यहाँ अपनी Cloudinary की जानकारी डालें)
-const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload";
-const UPLOAD_PRESET = "YOUR_UPLOAD_PRESET";
-
-// उदाहरण: इमेज अपलोड फंक्शन (Cloudinary के लिए)
+// इमेज अपलोड फंक्शन
 async function uploadToCloudinary(file) {
     const formData = new FormData();
     formData.append("file", file);
@@ -30,7 +16,7 @@ async function uploadToCloudinary(file) {
         body: formData
     });
     const data = await response.json();
-    return data.secure_url; // यह आपको इमेज का लिंक देगा
+    console.log("इमेज अपलोड हो गई, लिंक यहाँ है:", data.secure_url);
+    return data.secure_url;
 }
 
-console.log("Firebase और Cloudinary सेटअप तैयार है!");
